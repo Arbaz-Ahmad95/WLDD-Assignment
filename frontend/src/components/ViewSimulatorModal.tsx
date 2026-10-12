@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Play, TrendingUp, AlertTriangle, Zap, CheckCircle2, DollarSign } from 'lucide-react';
+import { X, Play, TrendingUp, AlertTriangle, Zap, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ISubmission, ICampaign } from '../types';
 import { api } from '../lib/api';
@@ -81,24 +81,24 @@ export default function ViewSimulatorModal({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
             <div
               style={{
-                width: '36px',
-                height: '36px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '8px',
-                background: 'rgba(6, 182, 212, 0.15)',
+                background: 'var(--brand-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
             >
-              <Zap size={20} color="var(--accent-cyan)" />
+              <Zap size={18} color="var(--brand-primary)" />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Platform View Simulator</h2>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Platform View Simulator</h2>
               <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                 Simulates real-time YouTube / Instagram view webhook updates (PATCH /api/submissions/:id/views)
               </p>
@@ -107,9 +107,9 @@ export default function ViewSimulatorModal({
           <button
             onClick={onClose}
             className="btn btn-sm btn-outline"
-            style={{ borderRadius: '50%', padding: '0.4rem', border: 'none' }}
+            style={{ borderRadius: '50%', padding: '0.35rem', border: 'none' }}
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
 
@@ -119,7 +119,7 @@ export default function ViewSimulatorModal({
             background: 'var(--bg-tertiary)',
             border: '1px solid var(--border-subtle)',
             borderRadius: 'var(--radius-md)',
-            padding: '1rem',
+            padding: '0.85rem 1rem',
             marginBottom: '1.25rem',
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
@@ -128,19 +128,19 @@ export default function ViewSimulatorModal({
         >
           <div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Current Views</span>
-            <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
               {submission.currentViews.toLocaleString()}
             </div>
           </div>
           <div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Current Payout</span>
-            <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
               ₹{submission.currentPayout.toLocaleString()}
             </div>
           </div>
           <div>
-            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Campaign Budget Left</span>
-            <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Budget Remaining</span>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>
               ₹{campaign ? campaign.remainingBudget.toLocaleString() : 'N/A'}
             </div>
           </div>
@@ -148,37 +148,36 @@ export default function ViewSimulatorModal({
 
         {/* Quick Simulation Buttons */}
         <div style={{ marginBottom: '1.25rem' }}>
-          <label className="input-label" style={{ marginBottom: '0.5rem' }}>Quick View Jump Presets</label>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+          <label className="input-label" style={{ marginBottom: '0.45rem' }}>Quick View Jump Presets</label>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem' }}>
             <button
               disabled={isUpdating}
               onClick={() => handleUpdate(submission.currentViews + 10000)}
               className="btn btn-sm btn-secondary"
             >
-              <TrendingUp size={14} color="var(--accent-purple)" /> +10,000 Views (Cross Tier 1)
+              <TrendingUp size={13} color="var(--brand-primary)" /> +10,000 Views (Tier 1)
             </button>
             <button
               disabled={isUpdating}
               onClick={() => handleUpdate(submission.currentViews + 50000)}
               className="btn btn-sm btn-secondary"
             >
-              <TrendingUp size={14} color="var(--accent-emerald)" /> +50,000 Views (Tier Jump)
+              <TrendingUp size={13} color="var(--accent-emerald)" /> +50,000 Views (Tier Jump)
             </button>
             <button
               disabled={isUpdating}
               onClick={() => handleUpdate(submission.currentViews + 150000)}
               className="btn btn-sm btn-secondary"
             >
-              <TrendingUp size={14} color="var(--accent-cyan)" /> +150,000 Views (Viral Wave)
+              <TrendingUp size={13} color="var(--accent-cyan)" /> +150,000 Views (Viral Wave)
             </button>
             <button
               disabled={isUpdating}
               onClick={() => handleUpdate(submission.currentViews + 350000)}
               className="btn btn-sm btn-outline"
-              style={{ borderColor: 'rgba(244, 63, 94, 0.4)', color: '#fb7185' }}
-              title="Simulates rapid massive spike to trigger anomaly detection"
+              style={{ borderColor: 'var(--accent-rose-border)', color: 'var(--accent-rose)' }}
             >
-              <AlertTriangle size={14} /> Simulate Spike Surge ⚡
+              <AlertTriangle size={13} /> Trigger Bot Spike ⚡
             </button>
           </div>
         </div>
@@ -186,7 +185,7 @@ export default function ViewSimulatorModal({
         {/* Custom View Input */}
         <div className="input-group">
           <label className="input-label">Set Exact Views</label>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', gap: '0.45rem' }}>
             <input
               type="number"
               className="input-field"
@@ -199,7 +198,7 @@ export default function ViewSimulatorModal({
               onClick={() => handleUpdate(targetViews)}
               className="btn btn-primary"
             >
-              <Play size={16} /> {isUpdating ? 'Updating...' : 'Apply'}
+              <Play size={15} /> {isUpdating ? 'Updating...' : 'Apply'}
             </button>
           </div>
         </div>
@@ -208,17 +207,17 @@ export default function ViewSimulatorModal({
         {lastResult && lastResult.payoutBreakdown && (
           <div
             style={{
-              marginTop: '1.25rem',
-              background: 'rgba(16, 24, 48, 0.85)',
-              border: '1px solid var(--border-accent)',
+              marginTop: '1.15rem',
+              background: '#f8fafc',
+              border: '1px solid var(--border-medium)',
               borderRadius: 'var(--radius-md)',
-              padding: '1rem',
+              padding: '0.85rem 1rem',
               animation: 'modalIn 0.2s ease'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-highlight)' }}>
-                SIMULATION RESULT & BREAKDOWN
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-primary)' }}>
+                CALCULATION BREAKDOWN
               </span>
               {lastResult.payoutBreakdown.isBudgetCapped && (
                 <span className="badge badge-rose">
@@ -227,10 +226,10 @@ export default function ViewSimulatorModal({
               )}
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Owed Differential Increment:</span>
-                <span style={{ fontWeight: 700, color: '#fff' }}>
+                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
                   ₹{lastResult.payoutBreakdown.owedIncrement.toLocaleString()}
                 </span>
               </div>
@@ -242,7 +241,7 @@ export default function ViewSimulatorModal({
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--text-muted)' }}>New Total Post Earnings:</span>
-                <span style={{ fontWeight: 800, color: '#fff' }}>
+                <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>
                   ₹{lastResult.payoutBreakdown.newTotalPayout.toLocaleString()}
                 </span>
               </div>

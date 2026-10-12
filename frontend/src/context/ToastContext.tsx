@@ -47,26 +47,25 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.75rem',
-          maxWidth: '420px',
+          gap: '0.65rem',
+          maxWidth: '400px',
           width: '100%',
           pointerEvents: 'none'
         }}
       >
         {toasts.map((toast) => {
-          let bg = 'rgba(18, 24, 46, 0.95)';
           let border = 'var(--border-subtle)';
-          let icon = <Info size={20} color="var(--accent-cyan)" />;
+          let icon = <Info size={18} color="var(--brand-primary)" />;
 
           if (toast.type === 'success') {
-            border = 'rgba(16, 185, 129, 0.4)';
-            icon = <CheckCircle2 size={20} color="var(--accent-emerald)" />;
+            border = 'var(--accent-emerald-border)';
+            icon = <CheckCircle2 size={18} color="var(--accent-emerald)" />;
           } else if (toast.type === 'error') {
-            border = 'rgba(244, 63, 94, 0.4)';
-            icon = <AlertCircle size={20} color="var(--accent-rose)" />;
+            border = 'var(--accent-rose-border)';
+            icon = <AlertCircle size={18} color="var(--accent-rose)" />;
           } else if (toast.type === 'warning') {
-            border = 'rgba(245, 158, 11, 0.4)';
-            icon = <AlertTriangle size={20} color="var(--accent-amber)" />;
+            border = 'var(--accent-amber-border)';
+            icon = <AlertTriangle size={18} color="var(--accent-amber)" />;
           }
 
           return (
@@ -74,15 +73,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={toast.id}
               style={{
                 pointerEvents: 'auto',
-                background: bg,
-                backdropFilter: 'blur(12px)',
+                background: '#ffffff',
                 border: `1px solid ${border}`,
-                borderRadius: 'var(--radius-md)',
-                padding: '0.9rem 1.1rem',
+                borderRadius: 'var(--radius-lg)',
+                padding: '0.85rem 1rem',
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '0.85rem',
-                boxShadow: 'var(--shadow-md)',
+                gap: '0.75rem',
+                boxShadow: 'var(--shadow-lg)',
                 color: 'var(--text-primary)',
                 animation: 'modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
@@ -90,11 +88,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               <div style={{ marginTop: '2px' }}>{icon}</div>
               <div style={{ flex: 1 }}>
                 {toast.title && (
-                  <div style={{ fontWeight: 700, fontSize: '0.875rem', marginBottom: '0.2rem' }}>
+                  <div style={{ fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.15rem', color: 'var(--text-primary)' }}>
                     {toast.title}
                   </div>
                 )}
-                <div style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
                   {toast.message}
                 </div>
               </div>
@@ -108,7 +106,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   padding: '2px'
                 }}
               >
-                <X size={16} />
+                <X size={15} />
               </button>
             </div>
           );

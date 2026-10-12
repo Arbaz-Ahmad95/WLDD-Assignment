@@ -35,26 +35,26 @@ export default function SignupPage() {
 
   return (
     <div className="container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-      <div className="glass-card" style={{ maxWidth: '460px', width: '100%', padding: '2.5rem 2rem' }}>
+      <div className="saas-card" style={{ maxWidth: '450px', width: '100%', padding: '2.5rem 2.25rem', background: '#ffffff', boxShadow: 'var(--shadow-md)' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <div
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '12px',
-              background: 'var(--accent-gradient-brand)',
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              background: 'var(--brand-primary)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '1rem',
-              boxShadow: 'var(--shadow-glow)'
+              marginBottom: '0.85rem',
+              boxShadow: '0 2px 6px rgba(79, 70, 229, 0.25)'
             }}
           >
-            <Flame size={24} color="#fff" />
+            <Flame size={22} color="#fff" />
           </div>
-          <h1 style={{ fontSize: '1.65rem', fontWeight: 800 }}>Create Your Account</h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Create Your Account</h1>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
             Join Meme’d as a Brand to sponsor or Creator to earn
           </p>
         </div>
@@ -62,8 +62,8 @@ export default function SignupPage() {
         <form onSubmit={handleSubmit}>
           {/* Role Selector */}
           <div className="input-group">
-            <label className="input-label">Select Your Account Role</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            <label className="input-label">Select Account Type</label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               <button
                 type="button"
                 onClick={() => setRole('creator')}
@@ -71,18 +71,18 @@ export default function SignupPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
+                  gap: '0.45rem',
+                  padding: '0.65rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: role === 'creator' ? '1px solid var(--accent-emerald)' : '1px solid var(--border-medium)',
-                  background: role === 'creator' ? 'rgba(16, 185, 129, 0.12)' : 'var(--bg-tertiary)',
-                  color: role === 'creator' ? '#34d399' : 'var(--text-secondary)',
+                  border: role === 'creator' ? '1.5px solid var(--accent-emerald)' : '1px solid var(--border-subtle)',
+                  background: role === 'creator' ? 'var(--accent-emerald-bg)' : '#ffffff',
+                  color: role === 'creator' ? 'var(--accent-emerald)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.875rem'
+                  fontSize: '0.85rem'
                 }}
               >
-                <UserCircle size={18} /> Creator
+                <UserCircle size={16} /> Creator
               </button>
 
               <button
@@ -92,18 +92,18 @@ export default function SignupPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
+                  gap: '0.45rem',
+                  padding: '0.65rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: role === 'brand' ? '1px solid var(--accent-purple)' : '1px solid var(--border-medium)',
-                  background: role === 'brand' ? 'rgba(139, 92, 246, 0.12)' : 'var(--bg-tertiary)',
-                  color: role === 'brand' ? '#c084fc' : 'var(--text-secondary)',
+                  border: role === 'brand' ? '1.5px solid var(--brand-primary)' : '1px solid var(--border-subtle)',
+                  background: role === 'brand' ? 'var(--brand-light)' : '#ffffff',
+                  color: role === 'brand' ? 'var(--brand-primary)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.875rem'
+                  fontSize: '0.85rem'
                 }}
               >
-                <Building2 size={18} /> Brand
+                <Building2 size={16} /> Brand
               </button>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function SignupPage() {
             <input
               type="text"
               className="input-field"
-              placeholder={role === 'brand' ? 'e.g. Swiggy Brand Growth' : 'e.g. Rohan Sharma'}
+              placeholder={role === 'brand' ? 'e.g. Swiggy Brand Ops' : 'e.g. Rohan Sharma'}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -149,15 +149,15 @@ export default function SignupPage() {
             type="submit"
             disabled={isSubmitting}
             className="btn btn-primary"
-            style={{ width: '100%', marginTop: '1rem' }}
+            style={{ width: '100%', marginTop: '0.75rem' }}
           >
-            {isSubmitting ? 'Creating account...' : 'Create Account'} <ArrowRight size={16} />
+            {isSubmitting ? 'Creating account...' : 'Create Account'} <ArrowRight size={15} />
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
+        <div style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
           Already have an account?{' '}
-          <Link href="/auth/login" style={{ color: 'var(--accent-purple)', fontWeight: 600 }}>
+          <Link href="/auth/login" style={{ color: 'var(--brand-primary)', fontWeight: 600 }}>
             Sign in here
           </Link>
         </div>

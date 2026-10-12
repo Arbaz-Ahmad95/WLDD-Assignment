@@ -15,39 +15,26 @@ export default function StatCard({
   subtitle,
   icon,
   trend,
-  accentColor = 'var(--accent-purple)'
+  accentColor = 'var(--brand-primary)'
 }: StatCardProps) {
   return (
     <div
-      className="glass-card"
+      className="saas-card"
       style={{
-        position: 'relative',
-        overflow: 'hidden',
+        padding: '1.4rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        gap: '1rem'
+        gap: '0.85rem'
       }}
     >
-      {/* Top Accent Line */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '3px',
-          background: `linear-gradient(90deg, ${accentColor}, transparent)`
-        }}
-      />
-
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+        <span style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
           {label}
         </span>
         <div
           style={{
-            padding: '0.5rem',
+            padding: '0.45rem',
             borderRadius: 'var(--radius-sm)',
             background: 'var(--bg-tertiary)',
             display: 'flex',
@@ -61,11 +48,11 @@ export default function StatCard({
       </div>
 
       <div>
-        <div style={{ fontSize: '1.85rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+        <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
           {value}
         </div>
         {(subtitle || trend) && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.35rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginTop: '0.3rem' }}>
             {trend && (
               <span
                 style={{

@@ -28,33 +28,33 @@ export default function LoginPage() {
 
   return (
     <div className="container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-      <div className="glass-card" style={{ maxWidth: '440px', width: '100%', padding: '2.5rem 2rem' }}>
+      <div className="saas-card" style={{ maxWidth: '440px', width: '100%', padding: '2.5rem 2.25rem', background: '#ffffff', boxShadow: 'var(--shadow-md)' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <div
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '12px',
-              background: 'var(--accent-gradient-brand)',
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              background: 'var(--brand-primary)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '1rem',
-              boxShadow: 'var(--shadow-glow)'
+              marginBottom: '0.85rem',
+              boxShadow: '0 2px 6px rgba(79, 70, 229, 0.25)'
             }}
           >
-            <Flame size={24} color="#fff" />
+            <Flame size={22} color="#fff" />
           </div>
-          <h1 style={{ fontSize: '1.65rem', fontWeight: 800 }}>Welcome Back</h1>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-            Sign in to access your Brand or Creator dashboard
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Sign in to Meme’d</h1>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
+            Access your Brand or Creator dashboard
           </p>
         </div>
 
         {/* Quick Demo Logins for Evaluators */}
-        <div style={{ marginBottom: '1.75rem' }}>
-          <span style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.5rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <span style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '0.45rem' }}>
             Instant 1-Click Demo Logins
           </span>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
@@ -66,7 +66,7 @@ export default function LoginPage() {
               }}
               className="btn btn-sm btn-secondary"
             >
-              <Building2 size={14} color="var(--accent-purple)" /> Demo Brand
+              <Building2 size={14} color="var(--brand-primary)" /> Demo Brand
             </button>
             <button
               type="button"
@@ -81,25 +81,23 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
           <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>OR SIGN IN WITH EMAIL</span>
+          <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>OR CONTINUE WITH EMAIL</span>
           <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label className="input-label">Email Address</label>
-            <div style={{ position: 'relative' }}>
-              <input
-                type="email"
-                className="input-field"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+            <input
+              type="email"
+              className="input-field"
+              placeholder="name@company.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           <div className="input-group">
@@ -118,16 +116,16 @@ export default function LoginPage() {
             type="submit"
             disabled={isSubmitting}
             className="btn btn-primary"
-            style={{ width: '100%', marginTop: '1rem' }}
+            style={{ width: '100%', marginTop: '0.75rem' }}
           >
-            {isSubmitting ? 'Signing in...' : 'Sign In'} <ArrowRight size={16} />
+            {isSubmitting ? 'Signing in...' : 'Sign In'} <ArrowRight size={15} />
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
+        <div style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
           Don't have an account?{' '}
-          <Link href="/auth/signup" style={{ color: 'var(--accent-purple)', fontWeight: 600 }}>
-            Sign up here
+          <Link href="/auth/signup" style={{ color: 'var(--brand-primary)', fontWeight: 600 }}>
+            Create an account
           </Link>
         </div>
       </div>

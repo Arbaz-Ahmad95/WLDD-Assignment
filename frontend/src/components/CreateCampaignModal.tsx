@@ -81,20 +81,20 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '640px' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '620px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: 800 }}>Create Brand Campaign</h2>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Define budget and performance milestone ladder for creators
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Create Brand Campaign</h2>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>
+              Define performance milestones and total budget spending cap
             </p>
           </div>
           <button
             onClick={onClose}
             className="btn btn-sm btn-outline"
-            style={{ borderRadius: '50%', padding: '0.4rem', border: 'none' }}
+            style={{ borderRadius: '50%', padding: '0.35rem', border: 'none' }}
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
 
@@ -115,7 +115,7 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
           {/* Platform Toggle */}
           <div className="input-group">
             <label className="input-label">Target Platform</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               <button
                 type="button"
                 onClick={() => setPlatform('Instagram')}
@@ -123,18 +123,18 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
+                  gap: '0.45rem',
+                  padding: '0.65rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: platform === 'Instagram' ? '1px solid var(--accent-rose)' : '1px solid var(--border-medium)',
-                  background: platform === 'Instagram' ? 'rgba(244, 63, 94, 0.12)' : 'var(--bg-tertiary)',
-                  color: platform === 'Instagram' ? '#fb7185' : 'var(--text-secondary)',
+                  border: platform === 'Instagram' ? '1.5px solid #e11d48' : '1px solid var(--border-subtle)',
+                  background: platform === 'Instagram' ? 'var(--accent-rose-bg)' : '#ffffff',
+                  color: platform === 'Instagram' ? '#e11d48' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.875rem'
+                  fontSize: '0.85rem'
                 }}
               >
-                <Instagram size={18} /> Instagram Reels
+                <Instagram size={16} /> Instagram Reels
               </button>
 
               <button
@@ -144,18 +144,18 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
+                  gap: '0.45rem',
+                  padding: '0.65rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: platform === 'YouTube' ? '1px solid var(--accent-rose)' : '1px solid var(--border-medium)',
-                  background: platform === 'YouTube' ? 'rgba(239, 68, 68, 0.12)' : 'var(--bg-tertiary)',
-                  color: platform === 'YouTube' ? '#ef4444' : 'var(--text-secondary)',
+                  border: platform === 'YouTube' ? '1.5px solid #dc2626' : '1px solid var(--border-subtle)',
+                  background: platform === 'YouTube' ? '#fef2f2' : '#ffffff',
+                  color: platform === 'YouTube' ? '#dc2626' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.875rem'
+                  fontSize: '0.85rem'
                 }}
               >
-                <Youtube size={18} /> YouTube Shorts
+                <Youtube size={16} /> YouTube Shorts
               </button>
             </div>
           </div>
@@ -178,8 +178,8 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
           </div>
 
           {/* Milestone Ladder Builder */}
-          <div style={{ marginTop: '1.25rem', marginBottom: '1.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
+          <div style={{ marginTop: '1.1rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.55rem' }}>
               <label className="input-label" style={{ marginBottom: 0 }}>
                 Milestone Ladder (Threshold → Highest Payout)
               </label>
@@ -187,19 +187,19 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                 type="button"
                 onClick={handleAddMilestone}
                 className="btn btn-sm btn-outline"
-                style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}
+                style={{ fontSize: '0.75rem', padding: '0.25rem 0.55rem' }}
               >
-                <Plus size={13} /> Add Milestone Tier
+                <Plus size={12} /> Add Milestone Tier
               </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {milestones.map((m, idx) => (
                 <div
                   key={idx}
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: '40px 1fr 1fr 40px',
+                    gridTemplateColumns: '35px 1fr 1fr 35px',
                     gap: '0.5rem',
                     alignItems: 'center',
                     background: 'var(--bg-tertiary)',
@@ -208,14 +208,14 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                     border: '1px solid var(--border-subtle)'
                   }}
                 >
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-purple)' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-primary)' }}>
                     #{idx + 1}
                   </span>
                   <div>
                     <input
                       type="number"
                       className="input-field"
-                      style={{ padding: '0.4rem 0.6rem', fontSize: '0.825rem' }}
+                      style={{ padding: '0.4rem 0.55rem', fontSize: '0.825rem', background: '#ffffff' }}
                       value={m.viewThreshold}
                       onChange={(e) => handleMilestoneChange(idx, 'viewThreshold', e.target.value)}
                       placeholder="Views"
@@ -225,7 +225,7 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                     <input
                       type="number"
                       className="input-field"
-                      style={{ padding: '0.4rem 0.6rem', fontSize: '0.825rem' }}
+                      style={{ padding: '0.4rem 0.55rem', fontSize: '0.825rem', background: '#ffffff' }}
                       value={m.payout}
                       onChange={(e) => handleMilestoneChange(idx, 'payout', e.target.value)}
                       placeholder="₹ Payout"
@@ -244,7 +244,7 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
                       justifyContent: 'center'
                     }}
                   >
-                    <Trash2 size={16} />
+                    <Trash2 size={15} />
                   </button>
                 </div>
               ))}
@@ -252,12 +252,12 @@ export default function CreateCampaignModal({ isOpen, onClose, onSuccess }: Crea
           </div>
 
           {/* Form Actions */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.65rem' }}>
             <button type="button" onClick={onClose} className="btn btn-secondary">
               Cancel
             </button>
             <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-              <Sparkles size={16} /> {isSubmitting ? 'Launching...' : 'Launch Campaign'}
+              <Sparkles size={15} /> {isSubmitting ? 'Launching...' : 'Launch Campaign'}
             </button>
           </div>
         </form>

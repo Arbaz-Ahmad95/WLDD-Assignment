@@ -86,21 +86,21 @@ export default function BrandPage() {
       {/* Brand Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.3rem' }}>
             <span className="badge badge-purple">BRAND CONTROL CENTER</span>
             {user?.role === 'brand' && (
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Logged in as {user.name}</span>
             )}
           </div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 800 }}>Campaign Performance & Budget Tracker</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-            Monitor real-time creator milestone payouts and enforce strict budget spending caps.
+          <h1 style={{ fontSize: '1.85rem', fontWeight: 800 }}>Campaign Performance & Budget Tracker</h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+            Manage creator milestone ladders and enforce strict campaign budget spending caps.
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button onClick={fetchBrandData} className="btn btn-secondary" title="Refresh data">
-            <RefreshCw size={15} /> Refresh
+            <RefreshCw size={14} /> Refresh
           </button>
           {user?.role === 'brand' ? (
             <button onClick={() => setIsCreateModalOpen(true)} className="btn btn-primary">
@@ -121,20 +121,20 @@ export default function BrandPage() {
       </div>
 
       {/* KPI Stats Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
         <StatCard
           label="Total Budget Committed"
           value={stats ? `₹${stats.totalCommittedBudget.toLocaleString()}` : `₹${campaigns.reduce((s, c) => s + c.totalBudget, 0).toLocaleString()}`}
           subtitle="Across all brand campaigns"
-          icon={<Coins size={20} color="var(--accent-purple)" />}
-          accentColor="var(--accent-purple)"
+          icon={<Coins size={18} color="var(--brand-primary)" />}
+          accentColor="var(--brand-primary)"
         />
 
         <StatCard
           label="Budget Disbursed (Spent)"
           value={stats ? `₹${stats.totalSpentBudget.toLocaleString()}` : `₹${campaigns.reduce((s, c) => s + c.spentBudget, 0).toLocaleString()}`}
           subtitle="Earned by creator milestones"
-          icon={<TrendingUp size={20} color="var(--accent-rose)" />}
+          icon={<TrendingUp size={18} color="var(--accent-rose)" />}
           accentColor="var(--accent-rose)"
         />
 
@@ -142,37 +142,37 @@ export default function BrandPage() {
           label="Remaining Budget"
           value={stats ? `₹${stats.totalRemainingBudget.toLocaleString()}` : `₹${campaigns.reduce((s, c) => s + c.remainingBudget, 0).toLocaleString()}`}
           subtitle="Strict cap: cannot overspend"
-          icon={<Coins size={20} color="var(--accent-emerald)" />}
+          icon={<Coins size={18} color="var(--accent-emerald)" />}
           accentColor="var(--accent-emerald)"
         />
 
         <StatCard
-          label="Creators & Submissions"
+          label="Active Submissions"
           value={stats ? stats.totalSubmissions : campaignSubmissions.length}
-          subtitle="Active creator posts submitted"
-          icon={<Users size={20} color="var(--accent-cyan)" />}
+          subtitle="Creator posts tracking views"
+          icon={<Users size={18} color="var(--accent-cyan)" />}
           accentColor="var(--accent-cyan)"
         />
       </div>
 
-      {/* Main Campaign Management & Inspection Split View */}
-      <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '1.5rem', alignItems: 'start' }}>
+      {/* Main Campaign Management Split View */}
+      <div style={{ display: 'grid', gridTemplateColumns: '370px 1fr', gap: '1.5rem', alignItems: 'start' }}>
         {/* Left Column: Campaign List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h2 style={{ fontSize: '1.15rem', fontWeight: 800 }}>Your Campaigns ({campaigns.length})</h2>
+            <h2 style={{ fontSize: '1.05rem', fontWeight: 800 }}>Campaigns ({campaigns.length})</h2>
             <button
               onClick={() => setIsCreateModalOpen(true)}
               className="btn btn-sm btn-outline"
-              style={{ fontSize: '0.75rem', padding: '0.25rem 0.6rem' }}
+              style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem' }}
             >
-              <Plus size={13} /> New
+              <Plus size={12} /> New
             </button>
           </div>
 
           {campaigns.length === 0 ? (
-            <div className="glass-card" style={{ textAlign: 'center', padding: '2.5rem 1.5rem' }}>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>No campaigns found.</p>
+            <div className="saas-card" style={{ textAlign: 'center', padding: '2.5rem 1.5rem' }}>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.85rem' }}>No campaigns found.</p>
               <button onClick={() => setIsCreateModalOpen(true)} className="btn btn-primary">
                 Create First Campaign
               </button>
@@ -185,25 +185,26 @@ export default function BrandPage() {
                 <div
                   key={c._id}
                   onClick={() => setSelectedCampaignId(c._id)}
-                  className="glass-card"
+                  className="saas-card"
                   style={{
+                    padding: '1.25rem',
                     cursor: 'pointer',
-                    borderColor: isSelected ? 'var(--accent-purple)' : undefined,
-                    boxShadow: isSelected ? 'var(--shadow-glow)' : undefined,
+                    borderColor: isSelected ? 'var(--brand-primary)' : undefined,
+                    boxShadow: isSelected ? '0 0 0 1.5px var(--brand-primary), var(--shadow-sm)' : undefined,
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.9rem'
+                    gap: '0.85rem'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                       {c.platform === 'Instagram' ? (
-                        <Instagram size={18} color="#fb7185" />
+                        <Instagram size={17} color="#e11d48" />
                       ) : (
-                        <Youtube size={18} color="#ef4444" />
+                        <Youtube size={17} color="#dc2626" />
                       )}
                       <div>
-                        <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#fff' }}>{c.name}</div>
+                        <div style={{ fontWeight: 800, fontSize: '0.925rem', color: 'var(--text-primary)' }}>{c.name}</div>
                         <div style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>{c.platform} Campaign</div>
                       </div>
                     </div>
@@ -226,7 +227,7 @@ export default function BrandPage() {
 
                   {/* Compact Milestone preview */}
                   <div>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.3rem' }}>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.25rem' }}>
                       Milestone Ladder:
                     </span>
                     <MilestoneLadderVisualizer milestones={c.milestones} compact />
@@ -240,14 +241,14 @@ export default function BrandPage() {
         {/* Right Column: Detailed Campaign Submissions & Payout Inspector */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {selectedCampaign ? (
-            <div className="glass-card" style={{ padding: '2rem' }}>
+            <div className="saas-card" style={{ padding: '1.85rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem' }}>
                     <span className="badge badge-cyan">{selectedCampaign.platform} CAMPAIGN</span>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>ID: {selectedCampaign._id}</span>
                   </div>
-                  <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>{selectedCampaign.name}</h2>
+                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800 }}>{selectedCampaign.name}</h2>
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -260,27 +261,27 @@ export default function BrandPage() {
                     disabled={campaignSubmissions.length === 0}
                     className="btn btn-sm btn-primary"
                   >
-                    <PlayCircle size={14} /> Test Views On First Post
+                    <PlayCircle size={14} /> Simulate First Post Views
                   </button>
                 </div>
               </div>
 
-              {/* Campaign Milestones Full Stepper */}
-              <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
-                  Configured Milestone Ladder (Thresholds & Guaranteed Payouts)
+              {/* Campaign Milestones Stepper */}
+              <div style={{ marginBottom: '1.75rem' }}>
+                <h3 style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.65rem' }}>
+                  Milestone Ladder (Thresholds & Guaranteed Payouts)
                 </h3>
                 <MilestoneLadderVisualizer milestones={selectedCampaign.milestones} />
               </div>
 
               {/* Creator Submissions List */}
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>
-                    Creator Submissions ({campaignSubmissions.length})
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>
+                    Submitted Creator Posts ({campaignSubmissions.length})
                   </h3>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                    Total Views Driven: <strong>{campaignSubmissions.reduce((s, sub) => s + sub.currentViews, 0).toLocaleString()}</strong>
+                    Total Views: <strong>{campaignSubmissions.reduce((s, sub) => s + sub.currentViews, 0).toLocaleString()}</strong>
                   </span>
                 </div>
 
@@ -289,22 +290,22 @@ export default function BrandPage() {
                     style={{
                       background: 'var(--bg-tertiary)',
                       border: '1px dashed var(--border-medium)',
-                      borderRadius: 'var(--radius-sm)',
-                      padding: '2.5rem',
+                      borderRadius: 'var(--radius-md)',
+                      padding: '2.25rem',
                       textAlign: 'center',
                       color: 'var(--text-muted)',
-                      fontSize: '0.85rem'
+                      fontSize: '0.825rem'
                     }}
                   >
                     No creator posts submitted for this campaign yet.
-                    <div style={{ marginTop: '0.75rem' }}>
+                    <div style={{ marginTop: '0.65rem' }}>
                       <Link href="/creator" className="btn btn-sm btn-secondary">
                         Switch to Creator Portal to Submit Post
                       </Link>
                     </div>
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {campaignSubmissions.map((sub) => {
                       const creatorName = typeof sub.creatorId === 'object' ? sub.creatorId?.name : 'Creator';
 
@@ -312,20 +313,21 @@ export default function BrandPage() {
                         <div
                           key={sub._id}
                           style={{
-                            background: 'var(--bg-tertiary)',
-                            border: sub.isSpikeFlagged ? '1px solid rgba(244, 63, 94, 0.5)' : '1px solid var(--border-subtle)',
+                            background: '#ffffff',
+                            border: sub.isSpikeFlagged ? '1px solid var(--accent-rose-border)' : '1px solid var(--border-subtle)',
                             borderRadius: 'var(--radius-md)',
-                            padding: '1.1rem 1.25rem',
+                            padding: '1rem 1.15rem',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                             flexWrap: 'wrap',
-                            gap: '1rem'
+                            gap: '0.85rem',
+                            boxShadow: 'var(--shadow-xs)'
                           }}
                         >
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', maxWidth: '340px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                              <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>{creatorName}</span>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', maxWidth: '340px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                              <span style={{ fontWeight: 700, fontSize: '0.875rem', color: 'var(--text-primary)' }}>{creatorName}</span>
                               {sub.isSpikeFlagged && (
                                 <span className="badge badge-rose" title={sub.spikeReason}>
                                   <AlertTriangle size={10} /> SPIKE FLAGGED
@@ -344,7 +346,7 @@ export default function BrandPage() {
                               rel="noreferrer"
                               style={{
                                 fontSize: '0.775rem',
-                                color: 'var(--accent-cyan)',
+                                color: 'var(--brand-primary)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '0.25rem',
@@ -354,24 +356,24 @@ export default function BrandPage() {
                               {sub.postLink} <ExternalLink size={11} />
                             </a>
                             {sub.spikeReason && (
-                              <span style={{ fontSize: '0.7rem', color: '#fb7185' }}>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--accent-rose)', fontWeight: 500 }}>
                                 ⚠️ {sub.spikeReason}
                               </span>
                             )}
                           </div>
 
                           {/* Views & Milestone Stats */}
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
                             <div>
                               <span style={{ fontSize: '0.675rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Verified Views</span>
-                              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fff' }}>
+                              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                                 {sub.currentViews.toLocaleString()}
                               </div>
                             </div>
 
                             <div>
                               <span style={{ fontSize: '0.675rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Milestone Payout</span>
-                              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+                              <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
                                 ₹{sub.currentPayout.toLocaleString()}
                               </div>
                             </div>
@@ -381,7 +383,7 @@ export default function BrandPage() {
                               className="btn btn-sm btn-secondary"
                               title="Simulate views on this submission"
                             >
-                              <PlayCircle size={14} color="var(--accent-purple)" /> Simulate Views
+                              <PlayCircle size={14} color="var(--brand-primary)" /> Simulate Views
                             </button>
                           </div>
                         </div>
@@ -392,7 +394,7 @@ export default function BrandPage() {
               </div>
             </div>
           ) : (
-            <div className="glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
+            <div className="saas-card" style={{ padding: '3rem', textAlign: 'center' }}>
               Select a campaign to inspect its submissions and payout performance.
             </div>
           )}

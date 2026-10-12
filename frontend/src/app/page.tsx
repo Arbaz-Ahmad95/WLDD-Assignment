@@ -12,12 +12,12 @@ import {
   Building2,
   UserCircle,
   PlayCircle,
-  CheckCircle2,
-  Lock,
-  ArrowRight,
   Database,
   Cpu,
-  Layers
+  Layers,
+  ArrowRight,
+  CheckCircle2,
+  Sparkles
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -52,54 +52,53 @@ export default function HomePage() {
   return (
     <div style={{ paddingTop: '2.5rem' }}>
       {/* Hero Section */}
-      <section className="container" style={{ textAlign: 'center', maxWidth: '960px', margin: '0 auto 4rem auto' }}>
+      <section className="container" style={{ textAlign: 'center', maxWidth: '920px', margin: '0 auto 3.5rem auto' }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.4rem 1rem',
+            gap: '0.45rem',
+            padding: '0.35rem 0.85rem',
             borderRadius: 'var(--radius-full)',
-            background: 'rgba(139, 92, 246, 0.12)',
-            border: '1px solid rgba(139, 92, 246, 0.3)',
-            marginBottom: '1.5rem'
+            background: 'var(--brand-light)',
+            border: '1px solid #c7d2fe',
+            marginBottom: '1.25rem'
           }}
         >
-          <Flame size={16} color="var(--accent-purple)" />
-          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#c084fc', letterSpacing: '0.04em' }}>
-            MEME’D CREATOR MARKETPLACE • PAYOUT ENGINE
+          <Flame size={15} color="var(--brand-primary)" />
+          <span style={{ fontSize: '0.775rem', fontWeight: 700, color: 'var(--brand-primary)', letterSpacing: '0.02em' }}>
+            CREATOR MARKETPLACE • CAMPAIGN PAYOUT ENGINE
           </span>
         </div>
 
         <h1
           style={{
-            fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
+            fontSize: 'clamp(2.4rem, 4.5vw, 3.5rem)',
             fontWeight: 800,
             lineHeight: 1.15,
-            marginBottom: '1.25rem',
-            background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            marginBottom: '1.2rem',
+            color: 'var(--text-primary)',
+            letterSpacing: '-0.03em'
           }}
         >
-          Powering Creator Payouts.<br />
-          Safeguarding Brand Budgets.
+          Predictable Creator Payouts.<br />
+          Strict Budget Caps for Brands.
         </h1>
 
         <p
           style={{
-            fontSize: '1.15rem',
+            fontSize: '1.1rem',
             color: 'var(--text-secondary)',
             lineHeight: 1.6,
-            maxWidth: '720px',
-            margin: '0 auto 2.5rem auto'
+            maxWidth: '680px',
+            margin: '0 auto 2.25rem auto'
           }}
         >
-          Brands launch viral meme campaigns with milestone ladders. Creators earn by hitting verified view thresholds on Instagram & YouTube. Total payouts are strictly capped by remaining campaign budgets with atomic concurrency control.
+          Brands launch viral meme and clip campaigns on Instagram and YouTube with custom milestone ladders. Creators submit posts and earn verified payouts with atomic concurrency protection and bot fraud detection.
         </p>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
           <button
             onClick={async () => {
               await quickDemoLogin('brand');
@@ -107,7 +106,7 @@ export default function HomePage() {
             }}
             className="btn btn-lg btn-primary"
           >
-            <Building2 size={18} /> Enter Brand Portal
+            <Building2 size={18} /> Launch Brand Portal
           </button>
 
           <button
@@ -115,48 +114,48 @@ export default function HomePage() {
               await quickDemoLogin('creator');
               router.push('/creator');
             }}
-            className="btn btn-lg btn-success"
+            className="btn btn-lg btn-secondary"
           >
-            <UserCircle size={18} /> Enter Creator Portal
+            <UserCircle size={18} color="var(--accent-emerald)" /> Creator Marketplace
           </button>
 
-          <Link href="/simulator" className="btn btn-lg btn-secondary">
-            <PlayCircle size={18} /> Live Webhook Simulator
+          <Link href="/simulator" className="btn btn-lg btn-outline">
+            <PlayCircle size={18} /> Webhook Simulator
           </Link>
         </div>
       </section>
 
-      {/* Interactive Live Hero Widget */}
-      <section className="container" style={{ marginBottom: '5rem' }}>
+      {/* Interactive Financial Calculator Widget */}
+      <section className="container" style={{ marginBottom: '4.5rem' }}>
         <div
-          className="glass-card"
+          className="saas-card"
           style={{
-            background: 'linear-gradient(180deg, rgba(20, 26, 48, 0.8) 0%, rgba(12, 16, 32, 0.95) 100%)',
-            border: '1px solid var(--border-medium)',
-            padding: '2.5rem',
-            maxWidth: '960px',
-            margin: '0 auto'
+            padding: '2rem 2.25rem',
+            maxWidth: '920px',
+            margin: '0 auto',
+            background: '#ffffff',
+            boxShadow: 'var(--shadow-md)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                <span className="badge badge-purple">LIVE INTERACTIVE DEMO</span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Try adjusting views below</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
+                <span className="badge badge-purple">LIVE CALCULATOR</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Interactive Business Logic Demonstration</span>
               </div>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>Milestone Ladder Calculation in Action</h3>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Milestone Ladder Calculation in Action</h3>
             </div>
 
             <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Highest Milestone Payout Earned</span>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Highest Milestone Payout</span>
+              <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
                 ₹{highestCrossed.toLocaleString()}
               </div>
             </div>
           </div>
 
           {/* Stepper Display */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.75rem' }}>
             {sampleMilestones.map((m, idx) => {
               const crossed = demoViews >= m.viewThreshold;
               const isHighest = crossed && (idx === sampleMilestones.length - 1 || demoViews < sampleMilestones[idx + 1].viewThreshold);
@@ -166,27 +165,28 @@ export default function HomePage() {
                   key={idx}
                   style={{
                     background: isHighest
-                      ? 'rgba(16, 185, 129, 0.15)'
+                      ? 'var(--accent-emerald-bg)'
                       : crossed
-                      ? 'rgba(139, 92, 246, 0.1)'
-                      : 'rgba(255, 255, 255, 0.02)',
+                      ? '#f5f3ff'
+                      : 'var(--bg-tertiary)',
                     border: isHighest
-                      ? '1px solid var(--accent-emerald)'
+                      ? '1.5px solid var(--accent-emerald)'
                       : crossed
-                      ? '1px solid rgba(139, 92, 246, 0.4)'
+                      ? '1px solid #c7d2fe'
                       : '1px solid var(--border-subtle)',
-                    borderRadius: 'var(--radius-sm)',
-                    padding: '1rem',
-                    textAlign: 'center'
+                    borderRadius: 'var(--radius-md)',
+                    padding: '0.85rem',
+                    textAlign: 'center',
+                    transition: 'all 0.2s ease'
                   }}
                 >
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+                  <div style={{ fontSize: '0.725rem', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '0.25rem' }}>
                     Tier #{idx + 1}
                   </div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fff', marginBottom: '0.25rem' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
                     {(m.viewThreshold / 1000)}K Views
                   </div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: crossed ? 'var(--accent-emerald)' : 'var(--text-muted)' }}>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 800, color: crossed ? 'var(--accent-emerald)' : 'var(--text-secondary)' }}>
                     ₹{m.payout.toLocaleString()}
                   </div>
                 </div>
@@ -195,12 +195,12 @@ export default function HomePage() {
           </div>
 
           {/* Slider and Quick Action Buttons */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', background: 'var(--bg-tertiary)', padding: '1rem 1.25rem', borderRadius: 'var(--radius-md)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                Simulated Views: <strong style={{ color: '#fff' }}>{demoViews.toLocaleString()} views</strong>
+                Simulated Views: <strong style={{ color: 'var(--text-primary)' }}>{demoViews.toLocaleString()} views</strong>
               </span>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
                 <button onClick={() => handleSimulate(12000)} className="btn btn-sm btn-secondary">12K</button>
                 <button onClick={() => handleSimulate(55000)} className="btn btn-sm btn-secondary">55K</button>
                 <button onClick={() => handleSimulate(110000)} className="btn btn-sm btn-secondary">110K 🚀</button>
@@ -217,7 +217,7 @@ export default function HomePage() {
               onChange={(e) => handleSimulate(Number(e.target.value))}
               style={{
                 width: '100%',
-                accentColor: 'var(--accent-purple)',
+                accentColor: 'var(--brand-primary)',
                 cursor: 'pointer'
               }}
             />
@@ -225,93 +225,93 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Core Architecture Cards */}
-      <section className="container" style={{ marginBottom: '5rem' }}>
+      {/* Core Engineering Architecture Grid */}
+      <section className="container" style={{ marginBottom: '4.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.35rem' }}>
             Built Strictly to Assignment Specifications
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Engineered with real-world fintech rigor, defensive edge case handling, and modular TypeScript structure.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.925rem' }}>
+            Designed with modular TypeScript services, atomic MongoDB operations, and high-coverage Jest test suites.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '1.25rem' }}>
           {/* Card 1 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(139, 92, 246, 0.15)' }}>
-                <TrendingUp size={22} color="var(--accent-purple)" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--brand-light)' }}>
+                <TrendingUp size={20} color="var(--brand-primary)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>Highest Milestone Ladder</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>Highest Milestone Ladder</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              A creator’s payout is always the amount of the highest milestone their post has crossed. Incremental updates only pay the differential difference, preventing double payments.
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+              Creators are credited the amount of the highest milestone crossed. Incremental updates only disburse the differential difference, preventing double payments.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(244, 63, 94, 0.15)' }}>
-                <ShieldCheck size={22} color="var(--accent-rose)" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--accent-rose-bg)' }}>
+                <ShieldCheck size={20} color="var(--accent-rose)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>Strict Budget Cap</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>Strict Budget Cap</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Campaigns will NEVER overspend remaining budget. When a milestone payout exceeds available funds, payout is capped exactly to remaining balance and campaign transitions to exhausted.
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+              Campaigns never overspend remaining budget. When a milestone payout exceeds available funds, payout is capped exactly to remaining balance and campaign transitions to exhausted.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(6, 182, 212, 0.15)' }}>
-                <Cpu size={22} color="var(--accent-cyan)" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--accent-cyan-bg)' }}>
+                <Cpu size={20} color="var(--accent-cyan)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>Concurrency Protection</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>Concurrency Protection</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
               Atomic MongoDB operations with Optimistic Concurrency Control guarantee that two simultaneous view updates can never drain or overdraw campaign funds.
             </p>
           </div>
 
           {/* Card 4 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(245, 158, 11, 0.15)' }}>
-                <Zap size={22} color="var(--accent-amber)" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--accent-amber-bg)' }}>
+                <Zap size={20} color="var(--accent-amber)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>View Spike Fraud Alert</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>View Spike Fraud Alert</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
               Calculates view velocity (views/second) and flash surge multipliers. Flagged submissions trigger an audit alert in brand dashboard for suspicious bot spikes.
             </p>
           </div>
 
           {/* Card 5 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(16, 185, 129, 0.15)' }}>
-                <Database size={22} color="var(--accent-emerald)" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--accent-emerald-bg)' }}>
+                <Database size={20} color="var(--accent-emerald)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>Redis Campaign Cache</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>Redis Campaign Cache</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
               Redis caching with in-memory fallback for high-throughput campaign browsing. Cache is automatically invalidated upon campaign creation or budget depletion.
             </p>
           </div>
 
           {/* Card 6 */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{ padding: '0.5rem', borderRadius: '8px', background: 'rgba(99, 102, 241, 0.15)' }}>
-                <Layers size={22} color="#818cf8" />
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div style={{ padding: '0.45rem', borderRadius: '8px', background: 'var(--brand-light)' }}>
+                <Layers size={20} color="var(--brand-primary)" />
               </div>
-              <h3 style={{ fontSize: '1.15rem' }}>Jest Test Suite (28 Tests)</h3>
+              <h3 style={{ fontSize: '1.05rem' }}>Jest Test Suite (28 Tests)</h3>
             </div>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              Unit tests for milestone calculation, single/multiple milestone jumps, budget cap enforcement, view regressions, spike detection, and end-to-end integration tests.
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+              Comprehensive test suites covering milestone calculation, single/multiple milestone jumps, budget cap enforcement, view regressions, and integration flows.
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Send, Instagram, Youtube, ExternalLink } from 'lucide-react';
+import { X, Send, Instagram, Youtube } from 'lucide-react';
 import { ICampaign } from '../types';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
@@ -57,20 +57,20 @@ export default function SubmitPostModal({ campaign, isOpen, onClose, onSuccess }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '520px' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Submit Creator Post</h2>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Submit your published Reel or Short to start unlocking milestones
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Submit Creator Post</h2>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>
+              Submit your published Reel or Short to track views and milestones
             </p>
           </div>
           <button
             onClick={onClose}
             className="btn btn-sm btn-outline"
-            style={{ borderRadius: '50%', padding: '0.4rem', border: 'none' }}
+            style={{ borderRadius: '50%', padding: '0.35rem', border: 'none' }}
           >
-            <X size={18} />
+            <X size={17} />
           </button>
         </div>
 
@@ -79,24 +79,24 @@ export default function SubmitPostModal({ campaign, isOpen, onClose, onSuccess }
           style={{
             background: 'var(--bg-tertiary)',
             border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-sm)',
-            padding: '0.85rem 1rem',
-            marginBottom: '1.25rem',
+            borderRadius: 'var(--radius-md)',
+            padding: '0.75rem 0.9rem',
+            marginBottom: '1.15rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
             {campaign.platform === 'Instagram' ? (
-              <Instagram size={20} color="#fb7185" />
+              <Instagram size={18} color="#e11d48" />
             ) : (
-              <Youtube size={20} color="#ef4444" />
+              <Youtube size={18} color="#dc2626" />
             )}
             <div>
-              <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#fff' }}>{campaign.name}</div>
+              <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)' }}>{campaign.name}</div>
               <div style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>
-                Platform: {campaign.platform} | Budget Remaining: ₹{campaign.remainingBudget.toLocaleString()}
+                Platform: {campaign.platform} | Budget Available: ₹{campaign.remainingBudget.toLocaleString()}
               </div>
             </div>
           </div>
@@ -124,12 +124,12 @@ export default function SubmitPostModal({ campaign, isOpen, onClose, onSuccess }
             </span>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.65rem', marginTop: '1.25rem' }}>
             <button type="button" onClick={onClose} className="btn btn-secondary">
               Cancel
             </button>
             <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-              <Send size={15} /> {isSubmitting ? 'Submitting...' : 'Submit Post Link'}
+              <Send size={14} /> {isSubmitting ? 'Submitting...' : 'Submit Post Link'}
             </button>
           </div>
         </form>

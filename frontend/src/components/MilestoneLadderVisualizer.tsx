@@ -1,6 +1,6 @@
 import React from 'react';
 import { IMilestone } from '../types';
-import { Award, CheckCircle2, ChevronRight, Lock, TrendingUp } from 'lucide-react';
+import { CheckCircle2, Lock, TrendingUp } from 'lucide-react';
 
 interface MilestoneLadderVisualizerProps {
   milestones: IMilestone[];
@@ -12,7 +12,6 @@ interface MilestoneLadderVisualizerProps {
 export default function MilestoneLadderVisualizer({
   milestones,
   currentViews = 0,
-  currentPayout = 0,
   compact = false
 }: MilestoneLadderVisualizerProps) {
   if (!milestones || milestones.length === 0) {
@@ -35,7 +34,7 @@ export default function MilestoneLadderVisualizer({
 
   if (compact) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
         {sorted.map((m, idx) => {
           const isCrossed = idx <= highestCrossedIndex;
           const isHighest = idx === highestCrossedIndex;
@@ -51,16 +50,16 @@ export default function MilestoneLadderVisualizer({
                 padding: '0.2rem 0.5rem',
                 borderRadius: '6px',
                 background: isHighest
-                  ? 'rgba(16, 185, 129, 0.2)'
+                  ? 'var(--accent-emerald-bg)'
                   : isCrossed
-                  ? 'rgba(139, 92, 246, 0.15)'
-                  : 'rgba(255, 255, 255, 0.04)',
+                  ? 'var(--brand-light)'
+                  : 'var(--bg-tertiary)',
                 border: isHighest
-                  ? '1px solid var(--accent-emerald)'
+                  ? '1px solid var(--accent-emerald-border)'
                   : isCrossed
-                  ? '1px solid rgba(139, 92, 246, 0.3)'
+                  ? '1px solid #c7d2fe'
                   : '1px solid var(--border-subtle)',
-                color: isHighest ? '#34d399' : isCrossed ? '#c084fc' : 'var(--text-muted)'
+                color: isHighest ? 'var(--accent-emerald)' : isCrossed ? 'var(--brand-primary)' : 'var(--text-muted)'
               }}
             >
               {isCrossed ? <CheckCircle2 size={11} /> : <Lock size={10} />}
@@ -74,13 +73,13 @@ export default function MilestoneLadderVisualizer({
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
       {/* Visual Milestone Stepper */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${sorted.length}, 1fr)`,
-          gap: '0.75rem'
+          gap: '0.65rem'
         }}
       >
         {sorted.map((m, idx) => {
@@ -93,23 +92,24 @@ export default function MilestoneLadderVisualizer({
               key={idx}
               style={{
                 background: isHighest
-                  ? 'linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1))'
+                  ? 'var(--accent-emerald-bg)'
                   : isCrossed
-                  ? 'rgba(139, 92, 246, 0.1)'
-                  : 'rgba(255, 255, 255, 0.02)',
+                  ? '#f5f3ff'
+                  : '#ffffff',
                 border: isHighest
-                  ? '1px solid var(--accent-emerald)'
+                  ? '1.5px solid var(--accent-emerald)'
                   : isCrossed
-                  ? '1px solid rgba(139, 92, 246, 0.4)'
+                  ? '1px solid #c7d2fe'
                   : isNext
-                  ? '1px dashed rgba(245, 158, 11, 0.4)'
+                  ? '1px dashed #cbd5e1'
                   : '1px solid var(--border-subtle)',
-                borderRadius: 'var(--radius-sm)',
+                borderRadius: 'var(--radius-md)',
                 padding: '0.85rem 0.75rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.4rem',
+                gap: '0.35rem',
                 position: 'relative',
+                boxShadow: isHighest ? '0 2px 4px rgba(5, 150, 105, 0.1)' : 'var(--shadow-xs)',
                 transition: 'all 0.2s ease'
               }}
             >
@@ -121,9 +121,9 @@ export default function MilestoneLadderVisualizer({
                     top: '-9px',
                     right: '8px',
                     background: 'var(--accent-emerald)',
-                    color: '#022c22',
+                    color: '#ffffff',
                     fontSize: '0.625rem',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     padding: '1px 6px',
                     borderRadius: '999px',
                     textTransform: 'uppercase'
@@ -135,7 +135,7 @@ export default function MilestoneLadderVisualizer({
 
               {/* Threshold View */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '0.75rem', color: isCrossed ? '#fff' : 'var(--text-muted)' }}>
+                <span style={{ fontSize: '0.725rem', fontWeight: 600, color: isCrossed ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
                   Tier {idx + 1}
                 </span>
                 {isCrossed ? (
@@ -146,7 +146,7 @@ export default function MilestoneLadderVisualizer({
               </div>
 
               {/* View Target */}
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff' }}>
+              <div style={{ fontSize: '0.925rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                 {m.viewThreshold >= 1000 ? `${(m.viewThreshold / 1000).toLocaleString()}K Views` : `${m.viewThreshold} Views`}
               </div>
 
@@ -165,21 +165,21 @@ export default function MilestoneLadderVisualizer({
         })}
       </div>
 
-      {/* Next Target / Views Needed Banner */}
+      {/* Next Target Banner */}
       {nextMilestone && (
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(245, 158, 11, 0.08)',
-            border: '1px solid rgba(245, 158, 11, 0.25)',
+            background: 'var(--accent-amber-bg)',
+            border: '1px solid var(--accent-amber-border)',
             borderRadius: 'var(--radius-sm)',
             padding: '0.6rem 0.85rem',
             fontSize: '0.775rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fbbf24' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#b45309' }}>
             <TrendingUp size={14} />
             <span>
               Next unlock at <strong>{nextMilestone.viewThreshold.toLocaleString()} views</strong> (Tier payout: ₹{nextMilestone.payout.toLocaleString()})

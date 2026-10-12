@@ -40,9 +40,9 @@ export default function BudgetBar({
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
             Campaign Budget Cap
           </span>
@@ -57,8 +57,8 @@ export default function BudgetBar({
       <div
         style={{
           width: '100%',
-          height: '9px',
-          background: 'rgba(255, 255, 255, 0.08)',
+          height: '8px',
+          background: '#e2e8f0',
           borderRadius: '999px',
           overflow: 'hidden',
           position: 'relative'
@@ -70,8 +70,7 @@ export default function BudgetBar({
             width: `${percentSpent}%`,
             background: barColor,
             borderRadius: '999px',
-            transition: 'width 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-            boxShadow: `0 0 10px ${barColor}`
+            transition: 'width 0.5s ease'
           }}
         />
       </div>
@@ -79,7 +78,7 @@ export default function BudgetBar({
       {/* Details Row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem' }}>
         <span style={{ color: 'var(--text-muted)' }}>
-          Spent: <strong style={{ color: '#fff' }}>₹{spentBudget.toLocaleString()}</strong>
+          Disbursed: <strong style={{ color: 'var(--text-primary)' }}>₹{spentBudget.toLocaleString()}</strong>
         </span>
         <span style={{ color: 'var(--text-muted)' }}>
           Available: <strong style={{ color: remainingBudget > 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)' }}>₹{remainingBudget.toLocaleString()}</strong>

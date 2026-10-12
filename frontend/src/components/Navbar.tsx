@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
-import { Flame, Sparkles, Building2, UserCircle, LogOut, PlayCircle, ShieldCheck } from 'lucide-react';
+import { Flame, Sparkles, Building2, UserCircle, LogOut, PlayCircle, BarChart3, CheckCircle2 } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout, quickDemoLogin } = useAuth();
@@ -17,52 +17,62 @@ export default function Navbar() {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        background: 'rgba(8, 10, 17, 0.85)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid var(--border-subtle)'
+        background: '#ffffff',
+        borderBottom: '1px solid var(--border-subtle)',
+        boxShadow: 'var(--shadow-xs)'
       }}
     >
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
         {/* Brand Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '10px',
-              background: 'var(--accent-gradient-brand)',
+              width: '36px',
+              height: '36px',
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)'
+              boxShadow: '0 2px 6px rgba(79, 70, 229, 0.25)'
             }}
           >
-            <Flame size={22} color="#ffffff" />
+            <Flame size={20} color="#ffffff" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff' }}>
-              Meme’d<span style={{ color: 'var(--accent-purple)' }}>.</span>
+            <span style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>
+              Meme’d<span style={{ color: 'var(--brand-primary)' }}>.</span>
             </span>
-            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.05em' }}>
-              PAYOUT TRACKER
+            <span style={{ fontSize: '0.625rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.04em' }}>
+              PAYOUT ENGINE
             </span>
           </div>
         </Link>
 
-        {/* Navigation Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        {/* Navigation Tabs */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <Link
             href="/"
             className={`btn btn-sm ${pathname === '/' ? 'btn-secondary' : 'btn-outline'}`}
-            style={{ border: pathname === '/' ? '1px solid var(--border-accent)' : undefined }}
+            style={{
+              fontWeight: pathname === '/' ? 700 : 500,
+              borderColor: pathname === '/' ? 'var(--brand-primary)' : undefined,
+              color: pathname === '/' ? 'var(--brand-primary)' : undefined,
+              background: pathname === '/' ? 'var(--brand-light)' : undefined
+            }}
           >
-            <Sparkles size={14} /> Showcase
+            <Sparkles size={14} /> Overview
           </Link>
 
           <Link
             href="/brand"
             className={`btn btn-sm ${pathname.startsWith('/brand') ? 'btn-secondary' : 'btn-outline'}`}
-            style={{ border: pathname.startsWith('/brand') ? '1px solid var(--accent-purple)' : undefined }}
+            style={{
+              fontWeight: pathname.startsWith('/brand') ? 700 : 500,
+              borderColor: pathname.startsWith('/brand') ? 'var(--brand-primary)' : undefined,
+              color: pathname.startsWith('/brand') ? 'var(--brand-primary)' : undefined,
+              background: pathname.startsWith('/brand') ? 'var(--brand-light)' : undefined
+            }}
           >
             <Building2 size={14} /> Brand Portal
           </Link>
@@ -70,29 +80,40 @@ export default function Navbar() {
           <Link
             href="/creator"
             className={`btn btn-sm ${pathname.startsWith('/creator') ? 'btn-secondary' : 'btn-outline'}`}
-            style={{ border: pathname.startsWith('/creator') ? '1px solid var(--accent-emerald)' : undefined }}
+            style={{
+              fontWeight: pathname.startsWith('/creator') ? 700 : 500,
+              borderColor: pathname.startsWith('/creator') ? 'var(--accent-emerald)' : undefined,
+              color: pathname.startsWith('/creator') ? 'var(--accent-emerald)' : undefined,
+              background: pathname.startsWith('/creator') ? 'var(--accent-emerald-bg)' : undefined
+            }}
           >
             <UserCircle size={14} /> Creator Portal
           </Link>
 
           <Link
             href="/simulator"
-            className={`btn btn-sm ${pathname === '/simulator' ? 'btn-primary' : 'btn-outline'}`}
+            className={`btn btn-sm ${pathname === '/simulator' ? 'btn-secondary' : 'btn-outline'}`}
+            style={{
+              fontWeight: pathname === '/simulator' ? 700 : 500,
+              borderColor: pathname === '/simulator' ? 'var(--accent-cyan)' : undefined,
+              color: pathname === '/simulator' ? 'var(--accent-cyan)' : undefined,
+              background: pathname === '/simulator' ? 'var(--accent-cyan-bg)' : undefined
+            }}
           >
-            <PlayCircle size={14} /> Live View Simulator
+            <PlayCircle size={14} /> Simulator Studio
           </Link>
         </nav>
 
-        {/* HR & Quick Role Switcher / Auth State */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        {/* Quick Demo Switcher / Auth Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.35rem 0.75rem',
+                  gap: '0.45rem',
+                  padding: '0.3rem 0.65rem',
                   background: 'var(--bg-tertiary)',
                   border: '1px solid var(--border-subtle)',
                   borderRadius: 'var(--radius-full)'
@@ -100,11 +121,11 @@ export default function Navbar() {
               >
                 <span
                   className={`badge ${user.role === 'brand' ? 'badge-purple' : 'badge-emerald'}`}
-                  style={{ fontSize: '0.65rem', padding: '0.15rem 0.45rem' }}
+                  style={{ fontSize: '0.65rem', padding: '0.1rem 0.4rem' }}
                 >
                   {user.role}
                 </span>
-                <span style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                   {user.name.split(' ')[0]}
                 </span>
               </div>
@@ -112,7 +133,7 @@ export default function Navbar() {
               <button
                 onClick={() => logout()}
                 className="btn btn-sm btn-outline"
-                title="Log out"
+                title="Sign out"
                 style={{ padding: '0.4rem 0.6rem' }}
               >
                 <LogOut size={14} />
@@ -128,7 +149,7 @@ export default function Navbar() {
                 className="btn btn-sm btn-secondary"
                 title="Quick 1-Click login as Demo Brand"
               >
-                <Building2 size={13} color="var(--accent-purple)" /> Demo Brand
+                <Building2 size={13} color="var(--brand-primary)" /> Demo Brand
               </button>
               <button
                 onClick={async () => {

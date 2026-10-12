@@ -15,7 +15,8 @@ import {
   Cpu,
   Layers,
   CheckCircle2,
-  Lock
+  Lock,
+  Terminal
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useToast } from '../../context/ToastContext';
@@ -137,26 +138,26 @@ export default function SimulatorPage() {
       {/* Simulator Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
-            <span className="badge badge-cyan">EVALUATOR TEST BENCH</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.3rem' }}>
+            <span className="badge badge-cyan">EVALUATION TEST BENCH</span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>PATCH /api/submissions/:id/views</span>
           </div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 800 }}>Platform View & Payout Simulator Studio</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+          <h1 style={{ fontSize: '1.85rem', fontWeight: 800 }}>Platform View & Payout Simulator Studio</h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
             Simulate real platform scrapers, multi-tier jumps, budget depletion caps, and concurrent stress tests.
           </p>
         </div>
 
         <button onClick={loadData} className="btn btn-secondary">
-          <RefreshCw size={15} /> Refresh Studio Data
+          <RefreshCw size={14} /> Refresh Studio Data
         </button>
       </div>
 
       {/* Main Split Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '400px 1fr', gap: '1.5rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '390px 1fr', gap: '1.5rem', alignItems: 'start' }}>
         {/* Left Control Panel */}
-        <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <h2 style={{ fontSize: '1.15rem', fontWeight: 800 }}>Simulation Controls</h2>
+        <div className="saas-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 800 }}>Simulation Controls</h2>
 
           {/* Select Target Submission */}
           <div className="input-group">
@@ -187,12 +188,13 @@ export default function SimulatorPage() {
                 fontSize: '0.8rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.35rem'
+                gap: '0.35rem',
+                border: '1px solid var(--border-subtle)'
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Post Views:</span>
-                <strong style={{ color: '#fff' }}>{selectedSubmission.currentViews.toLocaleString()}</strong>
+                <strong style={{ color: 'var(--text-primary)' }}>{selectedSubmission.currentViews.toLocaleString()}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Current Payout:</span>
@@ -209,8 +211,8 @@ export default function SimulatorPage() {
 
           {/* Test Case Scenarios */}
           <div>
-            <label className="input-label" style={{ marginBottom: '0.5rem' }}>Automated Evaluation Test Cases</label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <label className="input-label" style={{ marginBottom: '0.45rem' }}>Automated Evaluation Test Cases</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
               <button
                 disabled={executing || !selectedSubmission}
                 onClick={() => runViewUpdate(selectedSubmission.currentViews + 10000)}
@@ -227,8 +229,8 @@ export default function SimulatorPage() {
                 className="btn btn-sm btn-secondary"
                 style={{ justifyContent: 'flex-start' }}
               >
-                <Zap size={14} color="var(--accent-purple)" />
-                <span>Test 2: Multi-Milestone Jump (+120k views in 1 step)</span>
+                <Zap size={14} color="var(--brand-primary)" />
+                <span>Test 2: Multi-Milestone Jump (+120k in 1 step)</span>
               </button>
 
               <button
@@ -238,24 +240,24 @@ export default function SimulatorPage() {
                 style={{ justifyContent: 'flex-start' }}
               >
                 <ShieldCheck size={14} color="var(--accent-cyan)" />
-                <span>Test 3: Anti-Double-Payout (Repeated identical views)</span>
+                <span>Test 3: Anti-Double-Payout (Same views)</span>
               </button>
 
               <button
                 disabled={executing || !selectedSubmission}
                 onClick={() => runViewUpdate(selectedSubmission.currentViews + 350000)}
                 className="btn btn-sm btn-outline"
-                style={{ justifyContent: 'flex-start', borderColor: 'rgba(244, 63, 94, 0.4)', color: '#fb7185' }}
+                style={{ justifyContent: 'flex-start', borderColor: 'var(--accent-rose-border)', color: 'var(--accent-rose)' }}
               >
                 <AlertTriangle size={14} />
-                <span>Test 4: Trigger Bot Spike Fraud Alert (+350k surge)</span>
+                <span>Test 4: Trigger Bot Spike Alert (+350k surge)</span>
               </button>
 
               <button
                 disabled={executing || !selectedSubmission}
                 onClick={runConcurrencyStressTest}
                 className="btn btn-sm btn-outline"
-                style={{ justifyContent: 'flex-start', borderColor: 'rgba(139, 92, 246, 0.4)', color: '#c084fc' }}
+                style={{ justifyContent: 'flex-start', borderColor: '#c7d2fe', color: 'var(--brand-primary)' }}
               >
                 <Cpu size={14} />
                 <span>Test 5: Concurrency Race Test (5 Parallel Updates)</span>
@@ -264,9 +266,9 @@ export default function SimulatorPage() {
           </div>
 
           {/* Custom View Input */}
-          <div className="input-group" style={{ marginTop: '0.5rem' }}>
+          <div className="input-group" style={{ marginTop: '0.35rem' }}>
             <label className="input-label">Custom Absolute Views Input</label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.45rem' }}>
               <input
                 type="number"
                 className="input-field"
@@ -286,14 +288,14 @@ export default function SimulatorPage() {
         </div>
 
         {/* Right Inspection & Telemetry Panel */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {selectedCampaign && (
-            <div className="glass-card">
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '1rem' }}>
+            <div className="saas-card" style={{ padding: '1.5rem' }}>
+              <h2 style={{ fontSize: '1.05rem', fontWeight: 800, marginBottom: '0.85rem' }}>
                 Campaign Budget & Milestone Tracker
               </h2>
 
-              <div style={{ marginBottom: '1.25rem' }}>
+              <div style={{ marginBottom: '1.15rem' }}>
                 <BudgetBar
                   totalBudget={selectedCampaign.totalBudget}
                   spentBudget={selectedCampaign.spentBudget}
@@ -313,25 +315,28 @@ export default function SimulatorPage() {
           )}
 
           {/* Raw JSON API Response Viewer */}
-          <div className="glass-card">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                Real-Time API Telemetry & Payload Response
-              </h3>
-              <span className="badge badge-purple">JSON OUTPUT</span>
+          <div className="saas-card" style={{ padding: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <Terminal size={16} color="var(--brand-primary)" />
+                <h3 style={{ fontSize: '0.925rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                  Real-Time API Telemetry & Payload Response
+                </h3>
+              </div>
+              <span className="badge badge-purple">JSON RESPONSE</span>
             </div>
 
             <pre
               style={{
-                background: '#04060b',
-                border: '1px solid var(--border-subtle)',
+                background: '#0f172a',
+                border: '1px solid #1e293b',
                 borderRadius: 'var(--radius-sm)',
                 padding: '1rem',
                 fontSize: '0.775rem',
                 color: '#38bdf8',
                 overflowX: 'auto',
-                fontFamily: 'monospace',
-                maxHeight: '360px'
+                fontFamily: 'var(--font-mono)',
+                maxHeight: '340px'
               }}
             >
               {rawApiResponse
