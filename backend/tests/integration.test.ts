@@ -1,54 +1,67 @@
 import request from 'supertest';
-import mongoose from 'express';
 import app from '../src/app';
+import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongooseConn from 'mongoose';
 import { User } from '../src/models/User';
 import { Campaign } from '../src/models/Campaign';
 import { Submission } from '../src/models/Submission';
 
 describe('End-to-End API Integration & Concurrency Tests', () => {
-  let mongoServer: MongoMemoryServer;
+  let mongoServer: MongoMemoryServer | null = null;
   let brandToken: string;
   let creatorToken: string;
-  let brandId: string;
-  let creatorId: string;
   let campaignId: string;
   let submissionId: string;
 
   beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create();
-    const uri = mongoServer.getUri();
-    await mongooseConn.connect(uri);
+    // Try connecting to local running MongoDB first for instant execution
+    const localUri = 'mongodb://127.0.0.1:27017/memed_integration_test';
+    try {
+      await mongoose.connect(localUri, { serverSelectionTimeoutMS: 2000 });
+    } catch {
+      // Fallback to memory server if local MongoDB is unavailable
+      mongoServer = await MongoMemoryServer.create();
+      await mongoose.connect(mongoServer.getUri());
+    }
+
+    // Clean test db collections
+    await User.deleteMany({ email: /_test@/ });
+    await Campaign.deleteMany({ name: /Zomato Biryani/ });
+    await Submission.deleteMany({ postLink: /zomato_/ });
 
     // Create Brand
     const brandRes = await request(app)
       .post('/api/auth/signup')
       .send({
         name: 'Zomato Marketing',
-        email: 'zomato_test@brand.in',
+        email: `zomato_${Date.now()}_test@brand.in`,
         password: 'password123',
         role: 'brand'
       });
     brandToken = brandRes.body.token;
-    brandId = brandRes.body.user.id;
 
     // Create Creator
     const creatorRes = await request(app)
       .post('/api/auth/signup')
       .send({
         name: 'Meme Creator Pro',
-        email: 'creator_test@memes.in',
+        email: `creator_${Date.now()}_test@memes.in`,
         password: 'password123',
         role: 'creator'
       });
     creatorToken = creatorRes.body.token;
-    creatorId = creatorRes.body.user.id;
   });
 
   afterAll(async () => {
-    await mongooseConn.disconnect();
-    await mongoServer.stop();
+    // Clean test db collections
+    await User.deleteMany({ email: /_test@/ });
+    await Campaign.deleteMany({ name: /Zomato Biryani/ });
+    await Submission.deleteMany({ postLink: /zomato_/ });
+
+    await mongoose.disconnect();
+    if (mongoServer) {
+      await mongoServer.stop();
+    }
   });
 
   it('GET /api/health should return 200 with service information', async () => {
@@ -85,7 +98,7 @@ describe('End-to-End API Integration & Concurrency Tests', () => {
       .set('Authorization', `Bearer ${creatorToken}`)
       .send({
         campaignId,
-        postLink: 'https://instagram.com/reel/zomato_biryani_funny_clip'
+        postLink: `https://instagram.com/reel/zomato_biryani_${Date.now()}`
       });
 
     expect(res.status).toBe(201);
@@ -142,7 +155,7 @@ describe('End-to-End API Integration & Concurrency Tests', () => {
       .set('Authorization', `Bearer ${creatorToken}`)
       .send({
         campaignId,
-        postLink: 'https://instagram.com/reel/zomato_second_viral_creator'
+        postLink: `https://instagram.com/reel/zomato_second_${Date.now()}`
       });
     const sub2Id = sub2Res.body.submission._id;
 
@@ -163,7 +176,7 @@ describe('End-to-End API Integration & Concurrency Tests', () => {
       .set('Authorization', `Bearer ${creatorToken}`)
       .send({
         campaignId,
-        postLink: 'https://instagram.com/reel/zomato_third_creator'
+        postLink: `https://instagram.com/reel/zomato_third_${Date.now()}`
       });
     const sub3Id = sub3Res.body.submission._id;
 
