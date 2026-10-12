@@ -7,6 +7,8 @@ import { ISubmission, ICampaign } from '../types';
 import { api } from '../lib/api';
 import { useToast } from '../context/ToastContext';
 
+import VelocityGauge from './VelocityGauge';
+
 interface ViewSimulatorModalProps {
   submission: ISubmission | null;
   isOpen: boolean;
@@ -81,7 +83,7 @@ export default function ViewSimulatorModal({
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px', maxHeight: '90vh', overflowY: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
             <div
@@ -203,55 +205,67 @@ export default function ViewSimulatorModal({
           </div>
         </div>
 
-        {/* Live Calculation Feedback Card */}
-        {lastResult && lastResult.payoutBreakdown && (
-          <div
-            style={{
-              marginTop: '1.15rem',
-              background: '#f8fafc',
-              border: '1px solid var(--border-medium)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.85rem 1rem',
-              animation: 'modalIn 0.2s ease'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-primary)' }}>
-                CALCULATION BREAKDOWN
-              </span>
-              {lastResult.payoutBreakdown.isBudgetCapped && (
-                <span className="badge badge-rose">
-                  <AlertTriangle size={10} /> BUDGET CAP REACHED
-                </span>
-              )}
-            </div>
+        {/* Live Calculation Feedback Card & Velocity Tachometer */}
+        {lastResult && (
+          <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {/* Speedometer Tachometer */}
+            <VelocityGauge
+              velocity={lastResult.submission?.velocity || 0}
+              deltaViews={lastResult.submission?.lastViewDelta || 0}
+              deltaTimeSec={lastResult.submission?.lastTimeDeltaSec || 1}
+              isSpike={!!lastResult.submission?.isSpikeFlagged}
+              spikeReason={lastResult.submission?.spikeReason}
+            />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>Owed Differential Increment:</span>
-                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
-                  ₹{lastResult.payoutBreakdown.owedIncrement.toLocaleString()}
-                </span>
+            {lastResult.payoutBreakdown && (
+              <div
+                style={{
+                  background: '#f8fafc',
+                  border: '1px solid var(--border-medium)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '0.85rem 1rem',
+                  animation: 'modalIn 0.2s ease'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-primary)' }}>
+                    CALCULATION BREAKDOWN
+                  </span>
+                  {lastResult.payoutBreakdown.isBudgetCapped && (
+                    <span className="badge badge-rose">
+                      <AlertTriangle size={10} /> BUDGET CAP REACHED
+                    </span>
+                  )}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>Owed Differential Increment:</span>
+                    <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
+                      ₹{lastResult.payoutBreakdown.owedIncrement.toLocaleString()}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>Actual Paid (Budget Capped):</span>
+                    <span style={{ fontWeight: 800, color: 'var(--accent-emerald)' }}>
+                      +₹{lastResult.payoutBreakdown.actualPaidIncrement.toLocaleString()}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>New Total Post Earnings:</span>
+                    <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>
+                      ₹{lastResult.payoutBreakdown.newTotalPayout.toLocaleString()}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>Campaign Budget Left:</span>
+                    <span style={{ fontWeight: 700, color: 'var(--accent-cyan)' }}>
+                      ₹{lastResult.payoutBreakdown.remainingCampaignBudget.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>Actual Paid (Budget Capped):</span>
-                <span style={{ fontWeight: 800, color: 'var(--accent-emerald)' }}>
-                  +₹{lastResult.payoutBreakdown.actualPaidIncrement.toLocaleString()}
-                </span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>New Total Post Earnings:</span>
-                <span style={{ fontWeight: 800, color: 'var(--text-primary)' }}>
-                  ₹{lastResult.payoutBreakdown.newTotalPayout.toLocaleString()}
-                </span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: 'var(--text-muted)' }}>Campaign Budget Left:</span>
-                <span style={{ fontWeight: 700, color: 'var(--accent-cyan)' }}>
-                  ₹{lastResult.payoutBreakdown.remainingCampaignBudget.toLocaleString()}
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         )}
       </div>

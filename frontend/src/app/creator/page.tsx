@@ -9,6 +9,8 @@ import BudgetBar from '../../components/BudgetBar';
 import MilestoneLadderVisualizer from '../../components/MilestoneLadderVisualizer';
 import SubmitPostModal from '../../components/SubmitPostModal';
 import ViewSimulatorModal from '../../components/ViewSimulatorModal';
+import InteractiveCampaignCard, { getCampaignImage } from '../../components/InteractiveCampaignCard';
+import CampaignDetailModal from '../../components/CampaignDetailModal';
 import {
   UserCircle,
   Coins,
@@ -21,7 +23,8 @@ import {
   ExternalLink,
   Award,
   RefreshCw,
-  AlertTriangle
+  AlertTriangle,
+  Sparkles
 } from 'lucide-react';
 
 export default function CreatorPage() {
@@ -33,6 +36,7 @@ export default function CreatorPage() {
   const [loading, setLoading] = useState(true);
   const [submittingCampaign, setSubmittingCampaign] = useState<ICampaign | null>(null);
   const [simulatingSubmission, setSimulatingSubmission] = useState<ISubmission | null>(null);
+  const [detailCampaign, setDetailCampaign] = useState<ICampaign | null>(null);
 
   const fetchCreatorData = async () => {
     setLoading(true);
@@ -151,6 +155,7 @@ export default function CreatorPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             {submissions.map((sub) => {
               const camp = typeof sub.campaignId === 'object' ? (sub.campaignId as ICampaign) : null;
+              const thumb = getCampaignImage(camp?.name);
 
               return (
                 <div
@@ -162,12 +167,40 @@ export default function CreatorPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.85rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                      {camp?.platform === 'Instagram' ? (
-                        <Instagram size={20} color="#e11d48" />
-                      ) : (
-                        <Youtube size={20} color="#dc2626" />
-                      )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <div
+                        style={{
+                          position: 'relative',
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: 'var(--radius-md)',
+                          overflow: 'hidden',
+                          flexShrink: 0,
+                          boxShadow: 'var(--shadow-xs)',
+                          border: '1px solid var(--border-subtle)'
+                        }}
+                      >
+                        <img src={thumb} alt="Campaign" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            bottom: '2px',
+                            right: '2px',
+                            background: 'rgba(0,0,0,0.75)',
+                            borderRadius: '3px',
+                            padding: '1px 3px',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}
+                        >
+                          {camp?.platform === 'Instagram' ? (
+                            <Instagram size={10} color="#f43f5e" />
+                          ) : (
+                            <Youtube size={10} color="#ef4444" />
+                          )}
+                        </div>
+                      </div>
+
                       <div>
                         <div style={{ fontWeight: 800, fontSize: '1.05rem', color: 'var(--text-primary)' }}>
                           {camp?.name || 'Campaign Post'}
@@ -254,7 +287,7 @@ export default function CreatorPage() {
           <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Browse Live Campaigns</h2>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              Choose a brand campaign, submit your content link, and get paid as verified views climb.
+              Choose a brand campaign, explore the interactive brief and ladder, and submit your content.
             </p>
           </div>
 
@@ -280,82 +313,21 @@ export default function CreatorPage() {
           </div>
         </div>
 
-        {/* Campaign Cards Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.25rem' }}>
+        {/* Interactive Campaign Cards Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem' }}>
           {campaigns.map((camp) => (
-            <div
+            <InteractiveCampaignCard
               key={camp._id}
-              className="saas-card"
-              style={{
-                padding: '1.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: '1.15rem'
+              campaign={camp}
+              onOpenDetails={(c) => setDetailCampaign(c)}
+              onSubmitPost={(c) => {
+                if (!user) {
+                  quickDemoLogin('creator').then(() => setSubmittingCampaign(c));
+                } else {
+                  setSubmittingCampaign(c);
+                }
               }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                    {camp.platform === 'Instagram' ? (
-                      <span className="badge badge-rose"><Instagram size={11} /> Instagram Reels</span>
-                    ) : (
-                      <span className="badge badge-rose" style={{ background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca' }}>
-                        <Youtube size={11} /> YouTube Shorts
-                      </span>
-                    )}
-                    <span className="badge badge-purple">{camp.status}</span>
-                  </div>
-
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)' }}>
-                    ₹{camp.remainingBudget.toLocaleString()} Available
-                  </span>
-                </div>
-
-                <h3 style={{ fontSize: '1.075rem', fontWeight: 800, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>
-                  {camp.name}
-                </h3>
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.85rem' }}>
-                  Brand: {typeof camp.brandId === 'object' ? camp.brandId?.name : 'Verified Brand'}
-                </p>
-
-                {/* Budget Bar */}
-                <div style={{ marginBottom: '1rem' }}>
-                  <BudgetBar
-                    totalBudget={camp.totalBudget}
-                    spentBudget={camp.spentBudget}
-                    remainingBudget={camp.remainingBudget}
-                    status={camp.status}
-                  />
-                </div>
-
-                {/* Milestone Stepper */}
-                <div style={{ marginBottom: '0.85rem' }}>
-                  <span style={{ fontSize: '0.725rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
-                    Milestone Payout Ladder:
-                  </span>
-                  <MilestoneLadderVisualizer milestones={camp.milestones} compact />
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <div>
-                <button
-                  disabled={camp.remainingBudget <= 0}
-                  onClick={() => {
-                    if (!user) {
-                      quickDemoLogin('creator').then(() => setSubmittingCampaign(camp));
-                    } else {
-                      setSubmittingCampaign(camp);
-                    }
-                  }}
-                  className={`btn ${camp.remainingBudget > 0 ? 'btn-primary' : 'btn-outline'}`}
-                  style={{ width: '100%' }}
-                >
-                  <Send size={14} /> {camp.remainingBudget > 0 ? 'Submit Post Link' : 'Budget Exhausted'}
-                </button>
-              </div>
-            </div>
+            />
           ))}
         </div>
       </div>
@@ -373,6 +345,19 @@ export default function CreatorPage() {
         isOpen={!!simulatingSubmission}
         onClose={() => setSimulatingSubmission(null)}
         onSuccess={fetchCreatorData}
+      />
+
+      <CampaignDetailModal
+        campaign={detailCampaign}
+        isOpen={!!detailCampaign}
+        onClose={() => setDetailCampaign(null)}
+        onSubmitPost={(c) => {
+          if (!user) {
+            quickDemoLogin('creator').then(() => setSubmittingCampaign(c));
+          } else {
+            setSubmittingCampaign(c);
+          }
+        }}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import BudgetBar from '../../components/BudgetBar';
 import MilestoneLadderVisualizer from '../../components/MilestoneLadderVisualizer';
 import CreateCampaignModal from '../../components/CreateCampaignModal';
 import ViewSimulatorModal from '../../components/ViewSimulatorModal';
+import { getCampaignImage } from '../../components/InteractiveCampaignCard';
 import {
   Building2,
   Plus,
@@ -197,12 +198,24 @@ export default function BrandPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      {c.platform === 'Instagram' ? (
-                        <Instagram size={17} color="#e11d48" />
-                      ) : (
-                        <Youtube size={17} color="#dc2626" />
-                      )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                      <div
+                        style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: 'var(--radius-sm)',
+                          overflow: 'hidden',
+                          flexShrink: 0,
+                          border: '1px solid var(--border-subtle)',
+                          boxShadow: 'var(--shadow-xs)'
+                        }}
+                      >
+                        <img
+                          src={getCampaignImage(c.name)}
+                          alt={c.name}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
                       <div>
                         <div style={{ fontWeight: 800, fontSize: '0.925rem', color: 'var(--text-primary)' }}>{c.name}</div>
                         <div style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>{c.platform} Campaign</div>
@@ -242,13 +255,61 @@ export default function BrandPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {selectedCampaign ? (
             <div className="saas-card" style={{ padding: '1.85rem' }}>
+              {/* Campaign Visual Artwork Banner */}
+              <div
+                style={{
+                  position: 'relative',
+                  height: '130px',
+                  borderRadius: 'var(--radius-md)',
+                  overflow: 'hidden',
+                  marginBottom: '1.25rem'
+                }}
+              >
+                <img
+                  src={getCampaignImage(selectedCampaign.name)}
+                  alt={selectedCampaign.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.2) 60%, rgba(0,0,0,0) 100%)'
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    left: '16px',
+                    right: '16px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                    color: '#ffffff'
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
+                      <span className="badge badge-cyan">{selectedCampaign.platform} CAMPAIGN</span>
+                      <span className="badge badge-purple">{selectedCampaign.status}</span>
+                    </div>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
+                      {selectedCampaign.name}
+                    </h2>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ fontSize: '0.7rem', opacity: 0.9 }}>Remaining Budget</span>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#34d399' }}>
+                      ₹{selectedCampaign.remainingBudget.toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem' }}>
-                    <span className="badge badge-cyan">{selectedCampaign.platform} CAMPAIGN</span>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>ID: {selectedCampaign._id}</span>
-                  </div>
-                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800 }}>{selectedCampaign.name}</h2>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>ID: {selectedCampaign._id}</span>
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.5rem' }}>

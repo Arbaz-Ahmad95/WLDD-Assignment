@@ -49,6 +49,9 @@ export interface ISubmission {
   isSpikeFlagged: boolean;
   spikeReason?: string;
   isBudgetCapped: boolean;
+  velocity?: number;
+  lastViewDelta?: number;
+  lastTimeDeltaSec?: number;
   viewHistory: IViewHistoryPoint[];
   createdAt: string;
   updatedAt: string;
