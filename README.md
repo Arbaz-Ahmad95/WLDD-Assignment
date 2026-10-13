@@ -2,6 +2,11 @@
 
 A full-stack, production-grade creator marketplace platform built for **WLDD Assignment Evaluation**.
 
+### 🌐 Live Deployment Links
+- **Live Frontend Application**: [https://wldd-assignment.vercel.app/](https://wldd-assignment.vercel.app/)
+- **Live Backend API**: [https://wldd-assignment-o8q6.onrender.com](https://wldd-assignment-o8q6.onrender.com)
+- **API Health Check**: [https://wldd-assignment-o8q6.onrender.com/api/health](https://wldd-assignment-o8q6.onrender.com/api/health)
+
 Brands sponsor viral meme & clip campaigns with custom performance milestone ladders (e.g. 10K views → ₹500, 50K views → ₹2,000, 100K views → ₹5,000). Creators post content on **Instagram** or **YouTube**, submit post links, and earn payouts as verified views climb. The system strictly enforces campaign budget spending caps, provides atomic concurrency control to prevent race-condition overspending, detects suspicious bot view spikes, and caches campaign reads with Redis.
 
 ---
