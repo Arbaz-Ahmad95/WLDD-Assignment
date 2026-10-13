@@ -50,6 +50,31 @@ export async function seedInitialData(): Promise<{ brands: number; creators: num
     await creator2.save();
   }
 
+  // WLDD Evaluation Demo Accounts
+  let hrBrand = await User.findOne({ email: 'hr@wldd.in' });
+  if (!hrBrand) {
+    hrBrand = new User({
+      name: 'WLDD Evaluation Team (Brand)',
+      email: 'hr@wldd.in',
+      password: 'password123',
+      role: 'brand'
+    });
+    await hrBrand.save();
+    console.log('🌱 Seeded HR Demo Brand: hr@wldd.in');
+  }
+
+  let hrCreator = await User.findOne({ email: 'evaluator@wldd.in' });
+  if (!hrCreator) {
+    hrCreator = new User({
+      name: 'WLDD Evaluator (Creator)',
+      email: 'evaluator@wldd.in',
+      password: 'password123',
+      role: 'creator'
+    });
+    await hrCreator.save();
+    console.log('🌱 Seeded HR Demo Creator: evaluator@wldd.in');
+  }
+
   // Seed sample campaigns if none exist
   const existingCampaigns = await Campaign.countDocuments();
   let camp1, camp2, camp3;
